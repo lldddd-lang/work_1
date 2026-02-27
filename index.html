@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExoBrain | Intelligent Compute Hardware</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+        crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* === HOVER & INTERACTION EFFECTS === */
+        .nav a:hover {
+            color: #fff;
+        }
+
+        .card:hover,
+        .value-card:hover,
+        .timeline-item:hover,
+        .spec-card:hover,
+        .poac-card:hover {
+            border-color: rgba(250, 204, 21, 0.4);
+            box-shadow: 0 0 30px rgba(250, 204, 21, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .card:hover .card-icon,
+        .spec-card:hover i {
+            color: #FACC15;
+        }
+
+        .card-bottom-line {
+            transition: background 0.3s ease;
+        }
+
+        .card:hover .card-bottom-line {
+            background: linear-gradient(to right, transparent, rgba(250, 204, 21, 0.5), transparent);
+        }
+
+        .btn-primary:hover {
+            background: #EAB308;
+            transform: scale(1.03);
+            box-shadow: 0 0 40px rgba(250, 204, 21, 0.3);
+        }
+
+        .btn-secondary:hover {
+            border-color: #FACC15;
+            color: #FACC15;
+        }
+
+        .social-icon:hover {
+            background: #FACC15;
+            border-color: #FACC15;
+            color: #09090B;
+        }
+
+        .eco-node:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .footer ul a:hover {
+            color: #FACC15;
+        }
+
+        .footer-bottom a:hover {
+            color: #fff;
+        }
+
+        .flow-node-icon:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            color: #fff;
+        }
+
+        .reward-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .reward-card.featured:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 0 50px rgba(250, 204, 21, 0.25);
+        }
+
+        .numbered-circle:hover {
+            background: rgba(250, 204, 21, 0.1);
+            border-color: rgba(250, 204, 21, 0.5);
+            color: #FACC15;
+        }
+
+        .timeline-num:hover {
+            color: #FACC15;
+            border-color: rgba(250, 204, 21, 0.5);
+        }
+
+        /* Transition defaults */
+        .card,
+        .value-card,
+        .timeline-item,
+        .spec-card,
+        .poac-card,
+        .reward-card,
+        .eco-node,
+        .social-icon,
+        .btn-primary,
+        .btn-secondary,
+        .flow-node-icon,
+        .numbered-circle,
+        .timeline-num,
+        .nav a,
+        .footer ul a,
+        .footer-bottom a {
+            transition: all 0.3s ease;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes bg-flow {
+            0% {
+                background-position: -150% 0, 0 0;
+            }
+
+            100% {
+                background-position: 150% 0, 0 0;
+            }
+        }
+
+        @keyframes spin-slow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin-ccw {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(-360deg);
+            }
+        }
+
+        .badge-dot {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .float-card.top-left {
+            animation: float 3.5s ease-in-out infinite;
+        }
+
+        .float-card.bottom-left {
+            animation: float 4.2s ease-in-out infinite 0.5s;
+        }
+
+        .orbit-outer {
+            animation: spin-slow 60s linear infinite;
+        }
+
+        .orbit-inner {
+            animation: spin-slow 40s linear infinite reverse;
+        }
+
+
+
+        .flow-arrow {
+            animation: bg-flow 2.5s linear infinite;
+        }
+
+        @keyframes breathe-img {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+        }
+
+
+
+        .hero-img {
+            animation: breathe-img 4s ease-in-out infinite;
+        }
+
+        .hero-img-glow {
+            animation: breathe-glow 4s ease-in-out infinite;
+        }
+
+        /* Header scroll state */
+        .header.scrolled {
+            background: rgba(9, 9, 11, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #09090B;
+            color: #FAFAFA;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #09090B;
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #FACC15;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #eab308;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 50;
+            background: rgba(9, 9, 11, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-inner {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-svg {
+            width: 32px;
+            height: 32px;
+            color: #FACC15;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav a {
+            font-size: 14px;
+            font-weight: 500;
+            color: #9CA3AF;
+            text-decoration: none;
+        }
+
+        /* Section base */
+        section {
+            padding: 128px 0;
+        }
+
+        .section-dark {
+            background: #09090B;
+        }
+
+        /* Hero */
+        .hero {
+            padding-top: 128px;
+            padding-bottom: 80px;
+            min-height: 850px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-glow {
+            display: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #FACC15;
+            margin-bottom: 32px;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #FACC15;
+            box-shadow: 0 0 8px #FACC15;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff 0%, #A1A1AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h2 {
+            font-size: 40px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 32px;
+            letter-spacing: 0em;
+            line-height: 1.3;
+        }
+
+        .quote-block {
+            border-left: 4px solid #FACC15;
+            padding-left: 20px;
+            margin-bottom: 24px;
+        }
+
+        .quote-block p {
+            font-size: 24px;
+            color: #FACC15;
+            font-weight: 400;
+        }
+
+        .hero-desc {
+            font-size: 18px;
+            color: #9CA3AF;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 560px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .btn-primary {
+            padding: 16px 32px;
+            background: #FACC15;
+            color: #09090B;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.15);
+        }
+
+        .btn-secondary {
+            padding: 16px 32px;
+            background: transparent;
+            color: #fff;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Hero visual */
+        .hero-visual {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(55%);
+        }
+
+        .orbit-outer {
+            position: absolute;
+            inset: 64px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .orbit-inner {
+            position: absolute;
+            inset: 112px;
+            border: 1px dashed rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .hero-img-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            z-index: 10;
+        }
+
+        .hero-img-rotate {
+            width: 100%;
+            height: 100%;
+            animation: spin-ccw 60s linear infinite;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: breathe-img 4s ease-in-out infinite;
+            display: block;
+        }
+
+        .float-card {
+            position: absolute;
+            background: rgba(24, 24, 27, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 16px;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .float-card.top-left {
+            top: 25%;
+            left: -16px;
+        }
+
+        .float-card.bottom-left {
+            bottom: 25%;
+            left: -32px;
+        }
+
+        .float-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .float-icon.yellow {
+            background: rgba(250, 204, 21, 0.2);
+            color: #FACC15;
+            border: 1px solid rgba(250, 204, 21, 0.3);
+        }
+
+        .float-icon.white {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .float-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #9CA3AF;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .float-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Section title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .section-title .gradient-text {
+            background: linear-gradient(135deg, #fff 0%, #A1A1AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title .yellow-text {
+            color: #FACC15;
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: #9CA3AF;
+            font-weight: 300;
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .section-title .gray {
+            color: #6B7280;
+        }
+
+        /* Glass panel */
+        .glass {
+            background: rgba(24, 24, 27, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+
+        /* Flow chart (section 2) */
+        .flow-container {
+            background: rgba(24, 24, 27, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 64px 32px;
+        }
+
+        .flow-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .flow-node {
+            text-align: center;
+            flex-shrink: 0;
+            width: 120px;
+        }
+
+        .flow-node-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            background: #09090B;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #6B7280;
+        }
+
+        .flow-node-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            color: #D1D5DB;
+        }
+
+        .flow-node.highlight {
+            width: 160px;
+            padding: 32px 0;
+        }
+
+        .flow-node.highlight .flow-node-icon {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #FACC15;
+            background: #09090B;
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.15);
+            font-size: 32px;
+            color: #FACC15;
+            transform: scale(1.1);
+        }
+
+        .flow-node.highlight .flow-node-label {
+            font-weight: 700;
+            color: #fff;
+            font-size: 18px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .flow-node.highlight .flow-node-icon::before {
+            content: '';
+            position: absolute;
+            width: 128px;
+            height: 128px;
+            background: rgba(250, 204, 21, 0.15);
+            border-radius: 50%;
+            filter: blur(30px);
+            z-index: -1;
+        }
+
+        .core-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #FACC15;
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.15);
+        }
+
+        .flow-arrow {
+            flex: 1;
+            min-width: 20px;
+            max-width: 80px;
+            height: 1px;
+            background:
+                linear-gradient(90deg, transparent, rgba(250, 204, 21, 0.8), transparent) no-repeat,
+                rgba(255, 255, 255, 0.1);
+            background-size: 50% 100%, 100% 100%;
+            position: relative;
+        }
+
+        .flow-arrow::before {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-left: 6px solid #FACC15;
+            z-index: 2;
+        }
+
+        .flow-arrow::after {
+            display: none;
+        }
+
+        /* Cards grid (section 3) */
+        .cards-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 64px;
+        }
+
+        .card {
+            background: rgba(24, 24, 27, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 40px;
+            position: relative;
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 32px;
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #9CA3AF;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .card-bottom-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
+            border-radius: 0 0 16px 16px;
+        }
+
+        .solved-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .solved-line {
+            height: 80px;
+            width: 1px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), #FACC15);
+            margin-bottom: 16px;
+        }
+
+        .solved-pill {
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            color: #FACC15;
+            padding: 12px 32px;
+            border-radius: 9999px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.15);
+        }
+
+        /* Two col layout (section 4) */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .step-flow {
+            background: rgba(24, 24, 27, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 24px;
+        }
+
+
+
+        .step-item.mid .step-icon {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #9CA3AF;
+        }
+
+        .step-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9CA3AF;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .step-item h4 {
+            font-weight: 700;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .step-item p {
+            font-size: 13px;
+            color: #9CA3AF;
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 4px;
+        }
+
+        .arch-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 24px;
+        }
+
+        .arch-label i {
+            color: #FACC15;
+        }
+
+        .numbered-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .numbered-item {
+            display: flex;
+            gap: 24px;
+        }
+
+        .numbered-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9CA3AF;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .numbered-item h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .numbered-item p {
+            color: #9CA3AF;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* PoAC section 5 */
+        .poac-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 32px;
+        }
+
+        .poac-mechanism {
+            background: rgba(24, 24, 27, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+            position: relative;
+        }
+
+        .poac-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .poac-label-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .poac-label-dot.yellow {
+            background: #FACC15;
+        }
+
+        .poac-label h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .poac-label.yellow h4 {
+            color: #FACC15;
+        }
+
+        .poac-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .poac-card {
+            background: rgba(24, 24, 27, 0.4);
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .poac-card i {
+            font-size: 30px;
+            color: #D1D5DB;
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .poac-card.highlight i {
+            color: #FACC15;
+        }
+
+        .poac-card h5 {
+            font-weight: 700;
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .poac-card p {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .poac-accum {
+            background: linear-gradient(to bottom right, #1E1B0F, #0A0905);
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.15);
+        }
+
+        .poac-accum-bg {
+            position: absolute;
+            right: -32px;
+            bottom: -32px;
+            font-size: 150px;
+            color: #FACC15;
+            opacity: 0.1;
+            transform: rotate(12deg);
+            pointer-events: none;
+        }
+
+        .accum-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .accum-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .accum-item i {
+            color: #FACC15;
+            font-size: 20px;
+        }
+
+        .accum-item span {
+            font-weight: 500;
+            font-size: 18px;
+            letter-spacing: 0.03em;
+            color: #fff;
+        }
+
+        .poac-yellow-tag {
+            text-align: center;
+            background: rgba(250, 204, 21, 0.05);
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 64px;
+            display: inline-block;
+            font-size: 20px;
+            color: #FACC15;
+        }
+
+        .poac-yellow-inline {
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 9999px;
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            background: rgba(250, 204, 21, 0.05);
+        }
+
+        /* Value section 6 */
+        .value-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .value-card {
+            background: rgba(24, 24, 27, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 40px;
+        }
+
+        .value-card-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 32px;
+        }
+
+        .value-card-icon.default {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .value-card-icon.yellow {
+            background: #FACC15;
+            color: #09090B;
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.15);
+        }
+
+        .value-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .value-card p {
+            color: #9CA3AF;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .value-highlight {
+            margin-top: 64px;
+            padding: 32px;
+            background: rgba(250, 204, 21, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            text-align: center;
+        }
+
+        .value-highlight p {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+        }
+
+        .value-highlight .yellow {
+            color: #FACC15;
+        }
+
+        .value-highlight i {
+            color: #FACC15;
+            margin-right: 12px;
+            filter: drop-shadow(0 0 8px #FACC15);
+        }
+
+        /* Rewards section 7 */
+        .rewards-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            align-items: end;
+        }
+
+        .reward-card {
+            background: rgba(24, 24, 27, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 40px;
+            height: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-bottom: 4px solid #52525B;
+            margin-top: 16px;
+        }
+
+        .reward-card.featured {
+            background: linear-gradient(to bottom, #1E1B0F, #0A0905);
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            border-bottom: 4px solid #FACC15;
+            height: 400px;
+            margin-top: 0;
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.15);
+            z-index: 1;
+        }
+
+        .reward-card.white-bottom {
+            border-bottom-color: #fff;
+        }
+
+        .reward-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .reward-layer {
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6B7280;
+        }
+
+        .reward-card.featured .reward-layer {
+            color: #FACC15;
+        }
+
+        .reward-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid #52525B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .reward-card.featured .reward-badge {
+            background: #FACC15;
+            border-color: #FACC15;
+            color: #09090B;
+            font-weight: 700;
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.15);
+        }
+
+        .reward-card.white-bottom .reward-badge {
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        .reward-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .reward-card.featured h3 {
+            font-size: 30px;
+        }
+
+        .reward-card p {
+            font-size: 16px;
+            color: #9CA3AF;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .reward-value {
+            font-size: 36px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #D1D5DB;
+            padding-top: 24px;
+            margin-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reward-card.featured .reward-value {
+            color: #FACC15;
+            font-weight: 700;
+            border-top: 1px solid rgba(250, 204, 21, 0.2);
+        }
+
+        .token-label {
+            display: inline-block;
+            padding: 6px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            margin-bottom: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #9CA3AF;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .gradient-yellow-text {
+            background: linear-gradient(135deg, #FEF08A 0%, #FACC15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .small-caps {
+            font-size: 13px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding-top: 24px;
+        }
+
+        /* Why Now section 8 */
+        .why-now-grid {
+            display: flex;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .why-now-left {
+            flex: 1;
+        }
+
+        .why-now-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .why-now-left h2 {
+            font-size: 64px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.04em;
+            margin-bottom: 40px;
+        }
+
+        .quote-card {
+            position: relative;
+            padding: 32px;
+            border-radius: 12px;
+            background: rgba(24, 24, 27, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #FACC15;
+        }
+
+        .quote-card p {
+            font-size: 24px;
+            color: #fff;
+            font-weight: 300;
+            line-height: 1.5;
+            padding-left: 24px;
+            font-style: italic;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            padding: 24px;
+            background: rgba(24, 24, 27, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .timeline-num {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: #6B7280;
+            flex-shrink: 0;
+        }
+
+        .timeline-item h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .timeline-item p {
+            color: #9CA3AF;
+            font-weight: 300;
+        }
+
+        /* Specs section 9 */
+        .specs-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 64px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        .specs-title i {
+            color: #FACC15;
+            margin-right: 12px;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+
+        .spec-card {
+            background: #09090B;
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .spec-card i {
+            font-size: 24px;
+            color: #6B7280;
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .spec-card h3 {
+            font-weight: 700;
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .spec-card p {
+            font-size: 14px;
+            color: #9CA3AF;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* Ecosystem section 10 */
+        .eco-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .eco-node {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 500;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .eco-node.primary {
+            background: #FACC15;
+            color: #09090B;
+            font-weight: 700;
+            border-color: #FACC15;
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.15);
+        }
+
+        .eco-arrow {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 20px;
+        }
+
+        /* CTA section 11 */
+        .cta-section {
+            padding: 160px 0;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .cta-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: rgba(250, 204, 21, 0.1);
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+        }
+
+        .cta-section h2 {
+            font-size: 64px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 48px;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section button {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        .footer {
+            background: #09090B;
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 64px;
+            align-items: start;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: #6B7280;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .footer h4 {
+            font-weight: 700;
+            color: #fff;
+            margin-top: 8px;
+            margin-bottom: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .footer ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer ul a {
+            font-size: 14px;
+            color: #9CA3AF;
+            text-decoration: none;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9CA3AF;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .footer-bottom {
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #6B7280;
+            font-weight: 300;
+        }
+
+        .footer-bottom a {
+            color: #6B7280;
+            text-decoration: none;
+            margin-left: 32px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo-wrap">
+                <svg class="logo-svg" viewBox="0 0 370 370" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M172.08,369.3a28.857,28.857,0,0,1-7.891-26.143c-.807-12.814-4.364-16.61-4.364-16.61l.033-.03-21.381-21.381-.051.045s-3.324-4.223-19.82-5.919l-.034,0a28.881,28.881,0,1,1,24.363-24.684c.025.111.048.227.067.346.022-.435.046-.866.08-1.3.031-.319.052.4.052,1.1a9.032,9.032,0,0,1-.025,1.118.63.63,0,0,1-.021-.183c-.019-.263-.046-.505-.086-.735a32.933,32.933,0,0,0,5.2,18.942l23.127,23.127c1.864,1.43,6.822,4.015,17.739,3.192l.382-.025A28.882,28.882,0,1,1,172.08,369.3Zm78.186-78.188a28.878,28.878,0,1,1,20.421,8.459A28.878,28.878,0,0,1,250.266,291.107Zm78.186-78.185a28.878,28.878,0,1,1,20.421,8.459A28.878,28.878,0,0,1,328.451,212.922Zm-156.371,0a29.176,29.176,0,0,1-2.2-2.464q-.108-.1-.217-.2a46.817,46.817,0,0,0-18.918-10.333H76.706l-.006.07s-8.136.813-16.324,8.208a28.846,28.846,0,1,1,.433-30.713c7.659,7.177,13.729,7.568,14.67,7.584h75.531a34.531,34.531,0,0,0,17.6-8.808,28.885,28.885,0,1,1,3.469,36.657Zm78.186-78.185a28.878,28.878,0,1,1,20.421,8.459A28.878,28.878,0,0,1,250.266,134.736Zm-156.371,0a28.883,28.883,0,0,1,27.2-48.5c.279.006.57.021.876.047,7.674.64,12.117-1.742,14.271-3.465l1.637-1.637,23.13-23.132c1.332-1.736,3.665-6.159,3.313-15.592a28.884,28.884,0,1,1,29.858,22.5c-.583.046-1.222.071-1.922.073-16.916.05-21.691,4.527-21.691,4.527l-.03-.034L149.151,90.909l.045.05a1.281,1.281,0,0,0-.232.137l-.875.875c-1.329,1.689-3.525,6.061-4.662,17.091-.1.921-.218,1.744-.364,2.475a28.881,28.881,0,0,1-49.169,23.2Z"
+                        transform="translate(-7.249 -7.249)" />
+                </svg>
+                <span class="logo-text">ExoBrain</span>
+            </div>
+            <nav class="nav">
+                <a href="#">Home</a><a href="#">Product</a><a href="#">How It Works</a><a href="#">Network</a><a
+                    href="#">Developers</a><a href="#">Noos Network</a><a href="#"><i
+                        class="fa-brands fa-x-twitter"></i></a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 01 Hero -->
+    <section class="hero section-dark">
+        <div class="hero-glow"></div>
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <div class="badge"><span class="badge-dot"></span> ExoBrain Testnet Live</div>
+                    <h1>ExoBrain</h1>
+                    <h2>Intelligent Compute Hardware for the AGI Economy</h2>
+                    <div class="quote-block">
+                        <p>A Native Compute Node for the AGI Network</p>
+                    </div>
+                    <p class="hero-desc">ExoBrain converts real AI computation into verifiable on-chain intelligence.
+                    </p>
+                    <div class="btn-group">
+                        <button class="btn-primary">Join Testnet <i class="fa-solid fa-arrow-right"></i></button>
+                        <button class="btn-secondary">Run Nodes</button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="orbit-inner"></div>
+
+                    <div class="hero-img-wrapper">
+                        <div class="hero-img-rotate">
+                            <img class="hero-img" src="tubiao.png" alt="ExoBrain Node">
+                        </div>
+                    </div>
+                    <div class="float-card top-left">
+                        <div class="float-icon yellow"><i class="fa-solid fa-microchip"></i></div>
+                        <div>
+                            <div class="float-label">Compute Status</div>
+                            <div class="float-value">Active Node</div>
+                        </div>
+                    </div>
+                    <div class="float-card bottom-left">
+                        <div class="float-icon white"><i class="fa-solid fa-link"></i></div>
+                        <div>
+                            <div class="float-label">Network</div>
+                            <div class="float-value">Verifiable</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 World View -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="gradient-text">From Physical Compute to On-Chain Intelligence</h2>
+                <p>ExoBrain converts raw GPU computation into verifiable on-chain intelligence contributions.</p>
+            </div>
+            <div class="flow-container">
+                <div class="flow-row">
+                    <div class="flow-node">
+                        <div class="flow-node-icon"><i class="fa-solid fa-server"></i></div>
+                        <div class="flow-node-label">GPU</div>
+                    </div>
+                    <div class="flow-arrow"></div>
+                    <div class="flow-node highlight">
+                        <div class="flow-node-icon"><i class="fa-solid fa-brain"></i></div>
+                        <div class="flow-node-label">ExoBrain</div>
+                        <div class="core-badge">CORE NODE</div>
+                    </div>
+                    <div class="flow-arrow"></div>
+                    <div class="flow-node">
+                        <div class="flow-node-icon"><i class="fa-solid fa-fingerprint"></i></div>
+                        <div class="flow-node-label">PoAC</div>
+                    </div>
+                    <div class="flow-arrow"></div>
+                    <div class="flow-node">
+                        <div class="flow-node-icon"><i class="fa-solid fa-network-wired"></i></div>
+                        <div class="flow-node-label">Noos</div>
+                    </div>
+                    <div class="flow-arrow"></div>
+                    <div class="flow-node">
+                        <div class="flow-node-icon"><i class="fa-solid fa-robot"></i></div>
+                        <div class="flow-node-label">Noema &amp; Agents</div>
+                    </div>
+                    <div class="flow-arrow"></div>
+                    <div class="flow-node">
+                        <div class="flow-node-icon"><i class="fa-solid fa-layer-group"></i></div>
+                        <div class="flow-node-label">Applications</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 Why ExoBrain -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>AGI Requires Verifiable Intelligence<br><span class="gray">— Not Just More Compute</span></h2>
+                <p class="yellow-text" style="font-weight:500;">Unmeasured or unsettled intelligence cannot become
+                    productive input to AGI.</p>
+            </div>
+            <div class="cards-3">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <h3>Output Black Hole</h3>
+                    <p>Intelligent outputs cannot be reliably measured or attributed in current systems.</p>
+                    <div class="card-bottom-line"></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-droplet-slash"></i></div>
+                    <h3>Value Leakage</h3>
+                    <p>Model and agent improvements fail to persist or compound over time.</p>
+                    <div class="card-bottom-line"></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-eye-slash"></i></div>
+                    <h3>Compute Black Box</h3>
+                    <p>There is no reliable way to verify whether compute is actually used for real AI tasks.</p>
+                    <div class="card-bottom-line"></div>
+                </div>
+            </div>
+            <div class="solved-badge">
+                <div class="solved-line"></div>
+                <div class="solved-pill"><i class="fa-solid fa-check-circle"></i> Solved by ExoBrain</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 What ExoBrain Does -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="two-col">
+                <div>
+                    <div class="step-flow">
+                        <div class="step-item">
+                            <div class="step-icon"><i class="fa-solid fa-microchip"></i></div>
+                            <div>
+                                <h4>Execute AI Tasks</h4>
+                                <p>Standardized computation</p>
+                            </div>
+                        </div>
+                        <div class="step-item mid">
+                            <div class="step-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div>
+                                <h4>Submit Cryptographic Proofs</h4>
+                                <p>PoAC Verification</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon"><i class="fa-solid fa-weight-scale"></i></div>
+                            <div>
+                                <h4>Accumulate Intelligence Weight</h4>
+                                <p>On-chain Settlement</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="arch-label"><i class="fa-solid fa-layer-group"></i> Architecture Core</div>
+                    <h2 style="font-size:48px;font-weight:700;margin-bottom:40px;color:#fff;line-height:1.2;">The
+                        Physical Computation Layer of the AGI Stack</h2>
+                    <div class="numbered-list">
+                        <div class="numbered-item">
+                            <div class="numbered-circle">1</div>
+                            <div>
+                                <h3>Standardized Execution</h3>
+                                <p>The only standardized node that executes real AI computation for the network.</p>
+                            </div>
+                        </div>
+                        <div class="numbered-item">
+                            <div class="numbered-circle">2</div>
+                            <div>
+                                <h3>Measurable Architecture</h3>
+                                <p>The only hardware architecture eligible for PoAC-based measurement and reward
+                                    distribution.</p>
+                            </div>
+                        </div>
+                        <div class="numbered-item">
+                            <div class="numbered-circle">3</div>
+                            <div>
+                                <h3>Critical Interface</h3>
+                                <p>The sole interface between physical computation and on-chain settlement.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 How It Works (PoAC) -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Network Weight Is Determined by Intelligence</h2>
+                <h3 style="font-size:30px;color:#52525B;font-weight:300;margin-bottom:24px;">Not Compute Capacity</h3>
+                <p class="poac-yellow-inline" style="font-size:20px;color:#FACC15;">PoAC measures and rewards verifiable
+                    AI intelligence contributions.</p>
+            </div>
+            <div class="poac-grid">
+                <div class="poac-mechanism">
+                    <div class="poac-label">
+                        <div class="poac-label-dot"></div>
+                        <h4>Three-Step Mechanism</h4>
+                    </div>
+                    <div class="poac-3col">
+                        <div class="poac-card"><i class="fa-solid fa-laptop-code"></i>
+                            <h5>Local Computation</h5>
+                            <p>Nodes perform AI tasks locally.</p>
+                        </div>
+                        <div class="poac-card highlight"><i class="fa-solid fa-file-signature"></i>
+                            <h5>Proof Submission</h5>
+                            <p>Cryptographic proofs sent to network.</p>
+                        </div>
+                        <div class="poac-card"><i class="fa-solid fa-scale-balanced"></i>
+                            <h5>On-Chain Settlement</h5>
+                            <p>Rewards distributed based on value.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="poac-accum">
+                    <div class="poac-accum-bg"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="poac-label yellow" style="position:relative;z-index:1;">
+                        <div class="poac-label-dot yellow"></div>
+                        <h4>What Gets Accumulated</h4>
+                    </div>
+                    <ul class="accum-list">
+                        <li class="accum-item"><i class="fa-solid fa-circle-check"></i><span>Model Capabilities</span>
+                        </li>
+                        <li class="accum-item"><i class="fa-solid fa-circle-check"></i><span>Agent Modules</span></li>
+                        <li class="accum-item"><i class="fa-solid fa-circle-check"></i><span>Long-Term Network
+                                Influence</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 06 Value Created -->
+    <section class="section-dark" style="position:relative; overflow:hidden;">
+        <!-- Plotly 3D Background -->
+        <div id="plotly-bg" style="position:absolute; inset:0; z-index:0; opacity:0.15; pointer-events:none;"></div>
+        <div class="container" style="position:relative; z-index:1;">
+            <div class="section-title">
+                <h2>How ExoBrain Reshapes<br>the <span class="gradient-text">AGI Economy</span></h2>
+            </div>
+            <div class="value-3col">
+                <div class="value-card">
+                    <div class="value-card-icon default"><i class="fa-solid fa-dna"></i></div>
+                    <h3>Noema</h3>
+                    <p>Model capabilities continuously evolve through verifiable intelligence contributions.</p>
+                </div>
+                <div class="value-card"
+                    style="border: 1px solid #FACC15; box-shadow: 0 0 20px rgba(250, 204, 21, 0.05);">
+                    <div class="value-card-icon yellow"><i class="fa-solid fa-users-gear"></i></div>
+                    <h3>Agents</h3>
+                    <p>Intelligent services become measurable and economically settleable assets.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-card-icon default"><i class="fa-solid fa-globe"></i></div>
+                    <h3>AGI Economy</h3>
+                    <p>Computation becomes a productive, long-term economic asset rather than a sunk cost.</p>
+                </div>
+            </div>
+            <div class="value-highlight">
+                <p><i class="fa-solid fa-star"></i>All ExoBrain computation is dedicated to verifiable AI tasks and
+                    <span class="yellow">permanently accumulated</span> as network intelligence.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 07 Rewards & Economics -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="section-title">
+                <div class="token-label">Token Economics</div>
+                <h2>Beyond Block Rewards</h2>
+                <h3 class="gradient-yellow-text" style="font-size:30px;font-weight:700;margin-bottom:32px;">Long-Term
+                    Intelligence Rights</h3>
+                <p class="small-caps">All rewards originate from verifiable AI intelligence contributions</p>
+            </div>
+            <div class="rewards-3col">
+                <div class="reward-card">
+                    <div>
+                        <div class="reward-header"><span class="reward-layer">Layer 1</span>
+                            <div class="reward-badge">L1</div>
+                        </div>
+                        <h3>PoAC Block Rewards</h3>
+                        <p>Base incentive for network participation and uptime.</p>
+                    </div>
+                    <div class="reward-value">$NOOS</div>
+                </div>
+                <div class="reward-card featured">
+                    <div>
+                        <div class="reward-header"><span class="reward-layer">Layer 2</span>
+                            <div class="reward-badge">L2</div>
+                        </div>
+                        <h3>Model &amp; Agent Incentives</h3>
+                        <p>Earn from the usage of models and agents you contribute to.</p>
+                    </div>
+                    <div class="reward-value">Royalties</div>
+                </div>
+                <div class="reward-card white-bottom">
+                    <div>
+                        <div class="reward-header"><span class="reward-layer" style="color:rgba(255,255,255,0.5);">Layer
+                                3</span>
+                            <div class="reward-badge">L3</div>
+                        </div>
+                        <h3>IntelliPoint Weight</h3>
+                        <p>Long-term influence over the network's direction.</p>
+                    </div>
+                    <div class="reward-value" style="color:#fff;">Governance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 08 Why Now -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="why-now-grid">
+                <div class="why-now-left">
+                    <h2>Why Now?</h2>
+                    <div class="quote-card">
+                        <p>"The earlier intelligence is contributed, the earlier it becomes foundational to the AGI
+                            economy."</p>
+                    </div>
+                </div>
+                <div class="why-now-right">
+                    <div class="timeline-item">
+                        <div class="timeline-num">01</div>
+                        <div>
+                            <h3>Testnet Stage</h3>
+                            <p>Current phase offers the lowest entry threshold for new nodes.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-num">02</div>
+                        <div>
+                            <h3>Early Accumulation</h3>
+                            <p>Intelligence contributions can be accumulated and compounded early.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-num">03</div>
+                        <div>
+                            <h3>Network Advantage</h3>
+                            <p>IntelliPoint establishes a long-term strategic advantage in the ecosystem.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 09 Specs -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="specs-title"><i class="fa-solid fa-server"></i> Directional Hardware Requirements</div>
+            <div class="specs-grid">
+                <div class="spec-card"><i class="fa-solid fa-microchip"></i>
+                    <h3>GPU</h3>
+                    <p>High-performance optimized for training &amp; inference.</p>
+                </div>
+                <div class="spec-card"><i class="fa-solid fa-memory"></i>
+                    <h3>Memory</h3>
+                    <p>Sufficient VRAM for model context workloads.</p>
+                </div>
+                <div class="spec-card"><i class="fa-solid fa-network-wired"></i>
+                    <h3>Network</h3>
+                    <p>High bandwidth, low latency, stable connectivity.</p>
+                </div>
+                <div class="spec-card"><i class="fa-solid fa-bolt"></i>
+                    <h3>Power</h3>
+                    <p>Designed for 24/7 continuous operation.</p>
+                </div>
+                <div class="spec-card"><i class="fa-solid fa-cubes"></i>
+                    <h3>Deployment</h3>
+                    <p>Supports standalone and clustered configurations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10 Ecosystem -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Full AGI Economic Stack</h2>
+                <p style="font-weight:300;">Become a Foundational Intelligence Node in the AGI Economy</p>
+            </div>
+            <div class="eco-flow">
+                <div class="eco-node primary">ExoBrain</div><i class="eco-arrow fa-solid fa-arrow-right"></i>
+                <div class="eco-node">Noos</div><i class="eco-arrow fa-solid fa-arrow-right"></i>
+                <div class="eco-node">Noema</div><i class="eco-arrow fa-solid fa-arrow-right"></i>
+                <div class="eco-node">Agents</div><i class="eco-arrow fa-solid fa-arrow-right"></i>
+                <div class="eco-node">Applications</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11 Final CTA -->
+    <section class="cta-section section-dark">
+        <div class="cta-glow"></div>
+        <div class="container">
+            <h2>Become a Foundational Intelligence Node of the <span class="gradient-yellow-text">AGI Economy</span>
+            </h2>
+            <button class="btn-primary" style="margin:0 auto;font-size:18px;padding:24px 48px;">Run ExoBrain
+                Nodes</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-wrap" style="margin-bottom:24px;"><svg class="logo-svg" viewBox="0 0 370 370"
+                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M172.08,369.3a28.857,28.857,0,0,1-7.891-26.143c-.807-12.814-4.364-16.61-4.364-16.61l.033-.03-21.381-21.381-.051.045s-3.324-4.223-19.82-5.919l-.034,0a28.881,28.881,0,1,1,24.363-24.684c.025.111.048.227.067.346.022-.435.046-.866.08-1.3.031-.319.052.4.052,1.1a9.032,9.032,0,0,1-.025,1.118.63.63,0,0,1-.021-.183c-.019-.263-.046-.505-.086-.735a32.933,32.933,0,0,0,5.2,18.942l23.127,23.127c1.864,1.43,6.822,4.015,17.739,3.192l.382-.025A28.882,28.882,0,1,1,172.08,369.3Zm78.186-78.188a28.878,28.878,0,1,1,20.421,8.459A28.878,28.878,0,0,1,250.266,291.107Zm78.186-78.185a28.878,28.878,0,1,1,20.421,8.459A28.878,28.878,0,0,1,328.451,212.922Zm-156.371,0a29.176,29.176,0,0,1-2.2-2.464q-.108-.1-.217-.2a46.817,46.817,0,0,0-18.918-10.333H76.706l-.006.07s-8.136.813-16.324,8.208a28.846,28.846,0,1,1,.433-30.713c7.659,7.177,13.729,7.568,14.67,7.584h75.531a34.531,34.531,0,0,0,17.6-8.808,28.885,28.885,0,1,1,3.469,36.657Zm78.186-78.185a28.878,28.878,0,1,1,20.421,8.459A28.878,28.878,0,0,1,250.266,134.736Zm-156.371,0a28.883,28.883,0,0,1,27.2-48.5c.279.006.57.021.876.047,7.674.64,12.117-1.742,14.271-3.465l1.637-1.637,23.13-23.132c1.332-1.736,3.665-6.159,3.313-15.592a28.884,28.884,0,1,1,29.858,22.5c-.583.046-1.222.071-1.922.073-16.916.05-21.691,4.527-21.691,4.527l-.03-.034L149.151,90.909l.045.05a1.281,1.281,0,0,0-.232.137l-.875.875c-1.329,1.689-3.525,6.061-4.662,17.091-.1.921-.218,1.744-.364,2.475a28.881,28.881,0,0,1-49.169,23.2Z"
+                                transform="translate(-7.249 -7.249)" />
+                        </svg><span class="logo-text">ExoBrain</span></div>
+                    <p>Building the hardware foundation for verifiable artificial general intelligence.</p>
+                </div>
+                <div>
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#">Hardware Specs</a></li>
+                        <li><a href="#">PoAC Protocol</a></li>
+                        <li><a href="#">Testnet</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Whitepaper</a></li>
+                        <li><a href="#">Explorer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Community</h4>
+                    <div class="social-icons"><a href="#" class="social-icon"><i
+                                class="fa-brands fa-x-twitter"></i></a><a href="#" class="social-icon"><i
+                                class="fa-brands fa-discord"></i></a><a href="#" class="social-icon"><i
+                                class="fa-brands fa-github"></i></a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ExoBrain Network. All rights reserved.</p>
+                <div><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    <script>
+        // Header scroll effect
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Intersection Observer for fade-in on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // Keep header always visible
+        header.style.opacity = '1';
+        header.style.transform = 'none';
+
+        // Plotly 3D Network Background
+        (function () {
+            const el = document.getElementById('plotly-bg');
+            if (!el || typeof Plotly === 'undefined') return;
+
+            const N = 60;
+            const x = [], y = [], z = [], colors = [], sizes = [];
+            for (let i = 0; i < N; i++) {
+                x.push(Math.random() * 10 - 5);
+                y.push(Math.random() * 10 - 5);
+                z.push(Math.random() * 10 - 5);
+                colors.push(Math.random() > 0.7 ? '#FACC15' : 'rgba(255,255,255,0.6)');
+                sizes.push(Math.random() > 0.7 ? 6 : 3);
+            }
+
+            // Create edges
+            const ex = [], ey = [], ez = [];
+            for (let i = 0; i < N; i++) {
+                for (let j = i + 1; j < N; j++) {
+                    const d = Math.sqrt((x[i] - x[j]) ** 2 + (y[i] - y[j]) ** 2 + (z[i] - z[j]) ** 2);
+                    if (d < 3.5) {
+                        ex.push(x[i], x[j], null);
+                        ey.push(y[i], y[j], null);
+                        ez.push(z[i], z[j], null);
+                    }
+                }
+            }
+
+            const edges = {
+                x: ex, y: ey, z: ez, type: 'scatter3d', mode: 'lines',
+                line: { color: 'rgba(250,204,21,0.15)', width: 1 },
+                hoverinfo: 'skip', showlegend: false
+            };
+            const nodes = {
+                x, y, z, type: 'scatter3d', mode: 'markers',
+                marker: { size: sizes, color: colors, opacity: 0.8 },
+                hoverinfo: 'skip', showlegend: false
+            };
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                scene: {
+                    xaxis: { visible: false, range: [-6, 6] },
+                    yaxis: { visible: false, range: [-6, 6] },
+                    zaxis: { visible: false, range: [-6, 6] },
+                    bgcolor: 'rgba(0,0,0,0)',
+                    camera: { eye: { x: 1.5, y: 1.5, z: 1.2 } }
+                },
+                margin: { l: 0, r: 0, t: 0, b: 0 },
+                showlegend: false
+            };
+
+            Plotly.newPlot(el, [edges, nodes], layout, {
+                displayModeBar: false, responsive: true, staticPlot: true
+            });
+
+            // Breathing rotation: zoom in/out + clockwise/counterclockwise
+            let angle = 0;
+            let time = 0;
+            function rotate() {
+                time += 0.008;
+                // Direction switches: sin makes it go CW then CCW smoothly
+                const speed = 0.004 * Math.sin(time * 0.3);
+                angle += speed;
+                // Breathing: distance oscillates between 1.2 and 2.0
+                const breath = 1.6 + 0.4 * Math.sin(time * 0.5);
+                // Vertical bob
+                const zBob = 1.2 + 0.3 * Math.sin(time * 0.4);
+                Plotly.relayout(el, {
+                    'scene.camera': {
+                        eye: { x: breath * Math.cos(angle), y: breath * Math.sin(angle), z: zBob }
+                    }
+                });
+                requestAnimationFrame(rotate);
+            }
+            rotate();
+        })();
+    </script>
+</body>
+
+</html>
